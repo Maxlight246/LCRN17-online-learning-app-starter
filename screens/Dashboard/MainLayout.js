@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-    View,
-    Text
-} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 
 const MainLayout = () => {
-    return (
-        <View>
-            <Text>MainLayout</Text>
-        </View>
-    )
-}
+  return (
+    <SafeAreaView>
+      <Text>MainLayout</Text>
+    </SafeAreaView>
+  );
+};
 
 export default MainLayout;
