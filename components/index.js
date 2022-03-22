@@ -1,3 +1,5 @@
 import IconButton from './IconButton';
+import TextButton from './TextButton';
+import VerticalCourseCard from './VerticalCourseCard';
 
-export {IconButton};
+export {IconButton, TextButton, VerticalCourseCard};

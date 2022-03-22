@@ -1,8 +1,15 @@
 import React from 'react';
-import {View, Text, ImageBackground, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {COLORS, FONTS, SIZES, icons, images, dummyData} from '../../constants';
-import {IconButton} from '../../components';
+import {IconButton, TextButton, VerticalCourseCard} from '../../components';
 
 const Home = () => {
   const renderHeader = () => {
@@ -13,6 +20,7 @@ const Home = () => {
           marginBottom: 10,
           paddingHorizontal: SIZES.padding,
           alignItems: 'center',
+          marginTop: Platform.OS === 'ios' ? 40 : 0,
         }}>
         <View style={{flex: 1}}>
           <Text style={{...FONTS.h2}}>Hello, ByProgrammers</Text>
@@ -57,7 +65,44 @@ const Home = () => {
           source={images.start_learning}
           style={{width: '100%', height: 110, marginTop: SIZES.padding}}
         />
+        <TextButton
+          label="Start Learning"
+          contentContainerStyle={{
+            height: 40,
+            paddingHorizontal: SIZES.padding,
+            borderRadius: 20,
+            backgroundColor: COLORS.white,
+          }}
+          labelStyle={{color: COLORS.black}}
+        />
       </ImageBackground>
+    );
+  };
+
+  const renderCourse = () => {
+    return (
+      <FlatList
+        horizontal
+        data={dummyData.courses_list_1}
+        listKey="Course"
+        keyExtractor={item => `Course-${item.id}`}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{marginTop: SIZES.padding}}
+        renderItem={({item, index}) => {
+          return (
+            <VerticalCourseCard
+              course={item}
+              containerStyle={{
+                marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
+                marginRight:
+                  index == dummyData.courses_list_1.length - 1
+                    ? SIZES.padding
+                    : 0,
+              }}
+            />
+          );
+        }}
+      />
     );
   };
 
@@ -70,6 +115,7 @@ const Home = () => {
         contentContainerStyle={{paddingBottom: 150}}
         showsVerticalScrollIndicator={false}>
         {renderStartLearning()}
+        {renderCourse()}
       </ScrollView>
     </View>
   );
