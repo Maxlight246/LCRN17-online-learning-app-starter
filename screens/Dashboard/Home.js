@@ -9,7 +9,12 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {COLORS, FONTS, SIZES, icons, images, dummyData} from '../../constants';
-import {IconButton, TextButton, VerticalCourseCard} from '../../components';
+import {
+  IconButton,
+  TextButton,
+  VerticalCourseCard,
+  Line,
+} from '../../components';
 
 const Home = () => {
   const renderHeader = () => {
@@ -112,10 +117,12 @@ const Home = () => {
       {renderHeader()}
       {/* Content */}
       <ScrollView
+        // bounces={false}
         contentContainerStyle={{paddingBottom: 150}}
         showsVerticalScrollIndicator={false}>
         {renderStartLearning()}
         {renderCourse()}
+        <Line lineStyle={{marginVertical: SIZES.padding}} />
       </ScrollView>
     </View>
   );
