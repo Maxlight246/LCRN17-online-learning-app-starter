@@ -6,6 +6,7 @@ import {
   Image,
   Animated,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import {Home, Profile, Search} from '../../screens';
 import {COLORS, SIZES, FONTS, constants} from '../../constants';
@@ -176,6 +177,7 @@ const MainLayout = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: COLORS.white}}>
+      <StatusBar barStyle="default" />
       {renderContent()}
       {renderBottomTab()}
     </View>
