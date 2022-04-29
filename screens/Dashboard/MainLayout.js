@@ -111,6 +111,16 @@ const MainLayout = () => {
     });
   });
 
+  const renderItemContent = React.useCallback(({item, index}) => {
+    return (
+      <View style={{height: SIZES.height, width: SIZES.width}}>
+        {item.label == constants.screens.home && <Home />}
+        {item.label == constants.screens.search && <Search />}
+        {item.label == constants.screens.profile && <Profile />}
+      </View>
+    );
+  }, []);
+
   const renderContent = () => {
     return (
       <View style={{flex: 1}}>
@@ -139,15 +149,7 @@ const MainLayout = () => {
               useNativeDriver: false,
             },
           )}
-          renderItem={({item, index}) => {
-            return (
-              <View style={{height: SIZES.height, width: SIZES.width}}>
-                {item.label == constants.screens.home && <Home />}
-                {item.label == constants.screens.search && <Search />}
-                {item.label == constants.screens.profile && <Profile />}
-              </View>
-            );
-          }}
+          renderItem={renderItemContent}
         />
       </View>
     );
