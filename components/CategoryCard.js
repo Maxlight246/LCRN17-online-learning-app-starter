@@ -21,7 +21,10 @@ const CategoryCard = ({category, containerStyle, onPress}) => {
           ...containerStyle,
         }}
         source={category?.thumbnail}
-        resizeMode="cover">
+        resizeMode="cover"
+        imageStyle={{
+          borderRadius: SIZES.radius,
+        }}>
         <Text
           style={{
             color: COLORS.white,
