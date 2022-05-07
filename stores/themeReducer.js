@@ -1,12 +1,12 @@
 import * as themeActionTypes from './themeActions';
 import {selectedTheme} from '../constants';
 
-const initialState = {
+const initState = {
   appTheme: selectedTheme,
   error: null,
 };
 
-const themeReducer = (state = initialState, action) => {
+const themeReducer = (state = initState, action) => {
   switch (action.type) {
     case themeActionTypes.TOGGLE_THEME_BEGIN:
       return {

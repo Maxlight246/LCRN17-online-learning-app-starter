@@ -18,8 +18,10 @@ import {
   dummyData,
   constants,
 } from '../../constants';
+import {useNavigation} from '@react-navigation/native';
 
 const Search = () => {
+  const navigation = useNavigation();
   const scrollViewRef = React.useRef(null);
   const scrollY = useSharedValue(0);
   const onScroll = useAnimatedScrollHandler(event => {
@@ -83,6 +85,7 @@ const Search = () => {
           contentContainerStyle={{marginTop: SIZES.radius}}
           renderItem={({item, index}) => (
             <CategoryCard
+              sharedElementPrefix="Search"
               category={item}
               containerStyle={{
                 height: 130,
@@ -90,6 +93,12 @@ const Search = () => {
                 marginTop: SIZES.radius,
                 marginLeft: (index + 1) % 2 == 0 ? SIZES.radius : SIZES.padding,
               }}
+              onPress={() =>
+                navigation.navigate('CourseListing', {
+                  category: item,
+                  sharedElementPrefix: 'Search',
+                })
+              }
             />
           )}
         />
