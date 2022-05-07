@@ -1,8 +1,9 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS, FONTS, SIZES, icons} from '../constants';
+import {connect} from 'react-redux';
 
-const ProfileValue = ({icon, label, value, onPress}) => {
+const ProfileValue = ({icon, label, value, onPress, appTheme}) => {
   return (
     <TouchableOpacity
       style={{flexDirection: 'row', height: 80, alignItems: 'center'}}
@@ -14,7 +15,7 @@ const ProfileValue = ({icon, label, value, onPress}) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 20,
-          backgroundColor: COLORS.additionalColor11,
+          backgroundColor: appTheme?.backgroundColor3,
         }}>
         <Image
           source={icon}
@@ -34,14 +35,24 @@ const ProfileValue = ({icon, label, value, onPress}) => {
             {label}
           </Text>
         )}
-        <Text style={{...FONTS.h3}}>{value}</Text>
+        <Text style={{...FONTS.h3, color: appTheme?.textColor}}>{value}</Text>
       </View>
 
-      <Image source={icons.right_arrow} style={{width: 15, height: 15}} />
+      <Image
+        source={icons.right_arrow}
+        style={{width: 15, height: 15, tintColor: appTheme?.tintColor}}
+      />
     </TouchableOpacity>
   );
 };
 
-export default ProfileValue;
+function mapStateToProps(state) {
+  return {
+    appTheme: state.appTheme,
+    error: state.error,
+  };
+}
+
+export default connect(mapStateToProps)(ProfileValue);
 
 const styles = StyleSheet.create({});

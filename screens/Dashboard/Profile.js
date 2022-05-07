@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {
   IconButton,
@@ -16,8 +17,10 @@ import {
   ProfileRadioButton,
 } from '../../components';
 import {COLORS, FONTS, SIZES, icons, images} from '../../constants';
+import {connect} from 'react-redux';
+import {toggleTheme} from '../../stores/themeActions';
 
-const Profile = () => {
+const Profile = ({appTheme, toggleTheme}) => {
   const [newCourseNotifications, setNewCourseNotifications] =
     React.useState(false);
   const [studyReminder, setStudyReminder] = React.useState(false);
@@ -27,12 +30,15 @@ const Profile = () => {
       <View
         style={{
           flexDirection: 'row',
-          marginTop: 50,
-          paddingHorizontal: SIZES.padding,
+          marginTop: Platform.OS === 'ios' ? 50 : 20,
           justifyContent: 'space-between',
         }}>
-        <Text style={{...FONTS.h1}}>Profile</Text>
-        <IconButton icon={icons.sun} iconStyle={{tintColor: COLORS.black}} />
+        <Text style={{...FONTS.h1, color: appTheme?.textColor}}>Profile</Text>
+        <IconButton
+          icon={icons.sun}
+          iconStyle={{tintColor: appTheme?.tintColor}}
+          onPress={() => toggleThemeHandler()}
+        />
       </View>
     );
   };
@@ -46,7 +52,7 @@ const Profile = () => {
           paddingHorizontal: SIZES.radius,
           paddingVertical: 20,
           borderRadius: SIZES.radius,
-          backgroundColor: COLORS.primary3,
+          backgroundColor: appTheme?.backgroundColor2,
         }}>
         {/* Profile Image */}
         <TouchableOpacity style={{width: 80, height: 80}}>
@@ -124,10 +130,10 @@ const Profile = () => {
               marginTop: SIZES.padding,
               paddingHorizontal: SIZES.radius,
               borderRadius: 20,
-              backgroundColor: COLORS.white,
+              backgroundColor: appTheme?.backgroundColor4,
             }}
             labelStyle={{
-              color: COLORS.primary,
+              color: appTheme?.textColor2,
             }}
           />
         </View>
@@ -187,14 +193,22 @@ const Profile = () => {
     );
   };
 
+  const toggleThemeHandler = () => {
+    if (appTheme?.name == 'light') {
+      toggleTheme('dark');
+    } else {
+      toggleTheme('light');
+    }
+  };
+
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.white}}>
-      {renderHeader()}
+    <View style={{flex: 1, backgroundColor: appTheme?.backgroundColor1}}>
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: SIZES.padding,
           paddingBottom: 150,
         }}>
+        {renderHeader()}
         {renderProfileCard()}
         {renderProfileSection1()}
         {renderProfileSection2()}
@@ -203,7 +217,22 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+function mapStateToProps(state) {
+  return {
+    appTheme: state.appTheme,
+    error: state.error,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleTheme: themeType => {
+      return dispatch(toggleTheme(themeType));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 const styles = StyleSheet.create({
   profileSectionContainer: {
