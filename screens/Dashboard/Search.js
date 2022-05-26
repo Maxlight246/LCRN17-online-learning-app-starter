@@ -201,7 +201,7 @@ const Search = () => {
         {renderTopSearch()}
         {renderBrowseCategories()}
       </Animated.ScrollView>
-      {renderSearchBar()}
+      {/* {renderSearchBar()} */}
     </View>
   );
 };

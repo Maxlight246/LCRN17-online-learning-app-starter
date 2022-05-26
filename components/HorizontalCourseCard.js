@@ -10,9 +10,11 @@ import React from 'react';
 import {SIZES, COLORS, FONTS, icons} from '../constants';
 import {IconLabel} from './index';
 
-const HorizontalCourseCard = ({containerStyle, course}) => {
+const HorizontalCourseCard = ({containerStyle, course, onPress}) => {
   return (
-    <TouchableOpacity style={{flexDirection: 'row', ...containerStyle}}>
+    <TouchableOpacity
+      style={{flexDirection: 'row', ...containerStyle}}
+      onPress={onPress}>
       <ImageBackground
         source={course?.thumbnail}
         resizeMode="cover"
